@@ -15,7 +15,7 @@ export default function App() {
 
 
   useEffect(() => {
-    const localContacts = localStorage.getItem('localContacts')
+    const localContacts = localStorage.getItem('contacts')
     const parsedContacts = JSON.parse(localContacts)
     if (parsedContacts){
       setContacts(parsedContacts)
@@ -23,7 +23,7 @@ export default function App() {
   }, [])
   
   useEffect(() => {
-    localStorage.setItem('localContacts', JSON.stringify(contacts))
+    localStorage.setItem('contacts', JSON.stringify(contacts))
   },[contacts])
 
 
@@ -41,7 +41,7 @@ export default function App() {
     }
     
     const isContactExist = contacts.some(contact => 
-      contact.name.toLowerCase() === name.toLowerCase() || contact.number === number
+      newContact.name.toLowerCase() === contact.name.toLowerCase() || contact.number === number
     )
     
     if (isContactExist) {
@@ -49,7 +49,7 @@ export default function App() {
       return
     } 
     
-    setContacts((prevContacts) => [...prevContacts, newContact])
+    setContacts([newContact, ...contacts])
   }
 
   const handleDeleteContact = (contactId) => {
